@@ -39,8 +39,12 @@ let quizQuestions = [
     },
 ]
 
+// Need variable to track which Question im on in the object
+var whichQuestion = 0; // 0 represents first question in array of object
+
 questionEl.textContent = quizQuestions[1].question;
-choicesEl.textContent = quizQuestions[1].choices;
+var newButton = document.createElement("button");
+newButton.textContent = quizQuestions[1].choices[i];
 
 
 //-------------------------------------------------------------
