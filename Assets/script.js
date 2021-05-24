@@ -39,6 +39,8 @@ let quizQuestions = [
     },
 ]
 
+questionEl.textContent = quizQuestions[1].question;
+choicesEl.textContent = quizQuestions[1].choices;
 
 
 //-------------------------------------------------------------
