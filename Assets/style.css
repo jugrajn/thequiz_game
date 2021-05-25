@@ -40,4 +40,5 @@ h2 {
     position: relative;
     top: 20rem;
     left: 38.5rem;
+    display: block;
 }

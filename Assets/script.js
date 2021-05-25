@@ -1,6 +1,6 @@
 //Time Function variables
 var timeElement = document.querySelector(".time");
-var secondsLeft = 5;
+var secondsLeft = 75;
 
 // Question and Answers variables
 var questionEl = document.querySelector("#questionEl");
@@ -81,9 +81,12 @@ function showQuiz() {
 
                 if (newButton.textContent === quizQuestions[whichQuestion].answer) {
                     alert("Correct"); // NEED TO STORE POINTS
+                    newButton.style.color = "green";
                 }   else {
                     secondsLeft = secondsLeft - 15;
                 }
+
+                questionEl.textContent = "";
 
                 if (whichQuestion === quizQuestions.length) {
                     return;
