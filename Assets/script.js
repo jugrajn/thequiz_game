@@ -46,6 +46,7 @@ var whichQuestion = 0; // 0 represents first question in array of object
 
 //Time Function: 'Timer Interval'
 function startTime() {
+    showQuiz();
 var timerInterval = setInterval(function() {
     secondsLeft--;
     timeElement.textContent = secondsLeft + " seconds left until Game Over";
@@ -67,8 +68,17 @@ function sendMessage() {
 // Show Questions Function
 
 function showQuiz() {
-    if (whichQuestion <quizQuestions.length) {
+    if (whichQuestion < quizQuestions.length) {
         questionEl.textContent = quizQuestions[whichQuestion].question;
+        choicesEl.textContent = "";
+
+        for ( var i = 0; i < quizQuestions[whichQuestion].choices.length; i++) {
+            var newButton = document.createElement("button");
+            newButton.textContent = quizQuestions[whichQuestion].choices[i];
+            newButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+            });
+        }
     }
 }
 
