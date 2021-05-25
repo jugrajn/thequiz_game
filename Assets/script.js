@@ -72,12 +72,28 @@ function showQuiz() {
         questionEl.textContent = quizQuestions[whichQuestion].question;
         choicesEl.textContent = "";
 
-        for ( var i = 0; i < quizQuestions[whichQuestion].choices.length; i++) {
-            var newButton = document.createElement("button");
+        for ( let i = 0; i < quizQuestions[whichQuestion].choices.length; i++) {
+            //Create button elements to each choice for each question and append on html
+            var newButton = document.createElement("button"); 
             newButton.textContent = quizQuestions[whichQuestion].choices[i];
             newButton.addEventListener("click", function (event) {
                 event.stopPropagation();
+
+                if (newButton.textContent === quizQuestions[whichQuestion].answer) {
+                    alert("Correct"); // NEED TO STORE POINTS
+                }   else {
+                    secondsLeft = secondsLeft - 15;
+                }
+
+                if (whichQuestion === quizQuestions.length) {
+                    return;
+                } else {
+                    whichQuestion++;
+                    showQuiz();
+                }
             });
+
+            choicesEl.append(newButton);
         }
     }
 }
