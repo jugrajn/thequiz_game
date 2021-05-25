@@ -28,24 +28,19 @@ let quizQuestions = [
         answer: "Kay Value Pairs"
     },
     {
-        question: "Commonly used data types DO NOT include?",
-        choices: ["Strings", "Booleans", "Alerts", "Numbers"],
-        answer: "Alerts"
+        question: "Arrays in JavaScript can be used to store?",
+        choices: ["Numbers and Strings", "other Arrays", "booleans", "All of the Above"],
+        answer: "All of the Above"
     },
     {
-        question: "Commonly used data types DO NOT include?",
-        choices: ["Strings", "Booleans", "Alerts", "Numbers"],
-        answer: "Alerts"
+        question: "What is the file extension for a Javascript file?",
+        choices: [".java", ".js", ".html", ".css"],
+        answer: ".js"
     },
 ]
 
 // Need variable to track which Question im on in the object
 var whichQuestion = 0; // 0 represents first question in array of object
-
-questionEl.textContent = quizQuestions[1].question;
-var newButton = document.createElement("button");
-newButton.textContent = quizQuestions[1].choices[i];
-
 
 //-------------------------------------------------------------
 
@@ -67,6 +62,16 @@ var timerInterval = setInterval(function() {
 function sendMessage() {
     timeElement.textContent = "Game Over";
 }
+
+//----------------------------------------------------------------
+// Show Questions Function
+
+function showQuiz() {
+    if (whichQuestion <quizQuestions.length) {
+        questionEl.textContent = quizQuestions[whichQuestion].question;
+    }
+}
+
 
 //Button Event Listener
 startButton.addEventListener("click", startTime);
