@@ -24,7 +24,11 @@ h2 {
 }
 
 #questionEl {
-    border: 2px solid black;
+    font-size: xx-large;
+    font-weight: bolder;
+    color: coral;
+    background-color: rgb(37, 36, 36);
+    border-radius: 20px;
     width: fit-content;
     height: fit-content;
     padding: 1rem;
@@ -32,7 +36,6 @@ h2 {
 }
 
 #choicesEl {
-    border: 2px solid black;
     width: fit-content;
     height: fit-content;
     padding: 1rem;

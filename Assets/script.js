@@ -60,7 +60,7 @@ var timerInterval = setInterval(function() {
 
     if(secondsLeft <= 0 || whichQuestion === quiz.length) {
         clearInterval(timerInterval);
-        storeScore();
+        saveInitial();
         return;
         }
 
@@ -108,7 +108,7 @@ function evaluateAnswer(event){
     questionEl.textContent = "";
 
     if (whichQuestion === quiz.length) {
-        storeScore();
+        saveInitial();
     } else {
         whichQuestion++;
         showQuiz();
@@ -116,7 +116,7 @@ function evaluateAnswer(event){
 
 }
 //Display the score for each correct answer Create function
-function storeScore() {
+function saveInitial() {
     //Remove Quiz from page
     clearInterval();
     timeElement.remove();
@@ -136,11 +136,22 @@ function storeScore() {
     initialEl.append(userIntitial);
     initialEl.append(submitButton);
     
+    // Click Submit and star Save Score Function
+    submitButton.addEventListener("click", storeScore);
 
+
+    function storeScore(event) {
+        event.preventDefault();
+        initialEl.remove();
+
+        
+
+        localStorage.setItem("score", score)
+        var finalScore = localStorage.getItem("score");
+        scoreEl.textContent = `Score: ${finalScore}`;
+    }
 
 }
-
-
 
 //Button Event Listener
 startButton.addEventListener("click", startTime);
