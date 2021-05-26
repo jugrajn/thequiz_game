@@ -123,10 +123,15 @@ function storeScore() {
     choicesEl.remove();
     questionEl.remove();
     
-    //Display input initials 
+    //Display input initials and Submit Button
     var userIntitial = document.createElement("input");
     userIntitial.setAttribute("type", "text");
+
+    var submitButton = document.createElement("button");
+    submitButton.setAttribute("type", "submit");
+    submitButton.setAttribute("value", "Submit");
     initialEl.append(userIntitial);
+    initialEl.append(submitButton);
     
 
 
