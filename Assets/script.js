@@ -13,6 +13,9 @@ var score = 0;
 //Button variable
 var startButton = document.querySelector(".start-button");
 
+//User initial variable
+var initialEl = document.querySelector("#initialEl");
+
 //Questions of Object with Answer Value Arrays
 
 let quiz = [
@@ -58,14 +61,16 @@ var timerInterval = setInterval(function() {
     if(secondsLeft <= 0 || whichQuestion === quiz.length) {
         clearInterval(timerInterval);
         storeScore();
+        return;
         }
 
     }, 1000);
+    sendMessage();
 }
 
-// function sendMessage() {
-//     timeElement.textContent = "Game Over";
-// }
+function sendMessage() {
+    timeElement.textContent = "Game Over";
+}
 
 //----------------------------------------------------------------
 // Show Questions Function
@@ -80,10 +85,12 @@ function showQuiz() {
             newButton.textContent = quiz[whichQuestion].choices[i];
             newButton.setAttribute("data-id", i);
             newButton.addEventListener("click", evaluateAnswer);
-
+            newButton.style.display = "block";
+            // Add new button element into Choice Container on HTML
             choicesEl.append(newButton);
+            
         }
-    
+        return;
 }
 
 function evaluateAnswer(event){
@@ -92,19 +99,36 @@ function evaluateAnswer(event){
     console.log(quiz[whichQuestion].answer)
     if (event.target.textContent !== quiz[whichQuestion].answer) {
         secondsLeft = secondsLeft - 15;
-        score = score - 10;
+        choicesEl.style.backgroundColor = "red"
     }   else {
-        score = score + 100;
+        score++;
+        choicesEl.style.backgroundColor = "green";
+
     }
     questionEl.textContent = "";
 
     if (whichQuestion === quiz.length) {
-        //
-        return;
+        storeScore();
     } else {
         whichQuestion++;
         showQuiz();
     }
+
+}
+//Display the score for each correct answer Create function
+function storeScore() {
+    //Remove Quiz from page
+    clearInterval();
+    timeElement.remove();
+    choicesEl.remove();
+    questionEl.remove();
+    
+    //Display input initials 
+    var userIntitial = document.createElement("input");
+    userIntitial.setAttribute("type", "text");
+    initialEl.append(userIntitial);
+    
+
 
 }
 
