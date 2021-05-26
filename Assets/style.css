@@ -42,3 +42,8 @@ h2 {
     left: 38.5rem;
     display: block;
 }
+
+.score {
+    color: brown;
+    font-size: large;
+}
