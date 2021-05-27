@@ -26,5 +26,5 @@ THEN I can save my initials and my score
 
 # Screenshot
 
-<iframe src="https://drive.google.com/file/d/1UTx4zFm2qFfugUa0TcYEVPl9jgmVfJO4/preview" width="640" height="480"></iframe>
+
 
