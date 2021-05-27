@@ -1,6 +1,5 @@
 //Time Function variables
 var timeElement = document.querySelector(".time");
-var secondsLeft = 75;
 
 // Question and Answers variables
 var questionEl = document.querySelector("#questionEl");
@@ -8,13 +7,21 @@ var choicesEl = document.querySelector("#choicesEl");
 
 // Score variable
 var scoreEl = document.querySelector(".score");
-var score = 0;
+ // 0 represents first question in array of object
 
 //Button variable
 var startButton = document.querySelector(".start-button");
 
 //User initial variable
 var initialEl = document.querySelector("#initialEl");
+
+
+//Initializer, counters
+
+var secondsLeft;
+var score=0;
+var whichQuestion=0;
+var timer;
 
 //Questions of Object with Answer Value Arrays
 
@@ -47,19 +54,27 @@ let quiz = [
 ]
 
 // Need variable to track which Question im on in the object
-var whichQuestion = 0; // 0 represents first question in array of object
 
 //-------------------------------------------------------------
 
 //Time Function: 'Timer Interval'
 function startTime() {
+    timeElement.setAttribute("style","display:block;");
+    choicesEl.setAttribute("style","display:block;");
+    questionEl.setAttribute("style","display:block;");
+    secondsLeft=75;
+    whichQuestion=0;
+    score=0;
+    startButton.disabled = true;
     showQuiz();
-var timerInterval = setInterval(function() {
+
+    timer = setInterval(function() {
     secondsLeft--;
     timeElement.textContent = secondsLeft + " seconds left until Game Over";
 
     if(secondsLeft <= 0 || whichQuestion === quiz.length) {
-        clearInterval(timerInterval);
+        clearInterval(timer);
+   
         saveInitial();
         return;
         }
@@ -109,6 +124,7 @@ function evaluateAnswer(event){
 
     if (whichQuestion === quiz.length-1) {
         saveInitial();
+        clearInterval(timer);
     } else {
         whichQuestion++;
         showQuiz();
@@ -117,22 +133,26 @@ function evaluateAnswer(event){
 }
 //Display the score for each correct answer Create function
 function saveInitial() {
+    startButton.disabled = false;
     //Remove Quiz from page
-    clearInterval();
-    timeElement.remove();
-    choicesEl.remove();
-    questionEl.remove();
+ 
+    timeElement.setAttribute("style","display:none;");
+    choicesEl.setAttribute("style","display:none;");
+    questionEl.setAttribute("style","display:none;");
     
     //Display input initials and Submit Button
     initialEl.textContent = "Type in your Initials";
+
     // ----> Initials input 
     var userIntitial = document.createElement("input");
     userIntitial.setAttribute("class", "input");
     userIntitial.setAttribute("type", "text");
+
     // ----> Submit Button
     var submitButton = document.createElement("input");
     submitButton.setAttribute("type", "button");
     submitButton.setAttribute("value", "Submit");
+
     // Add to html
     initialEl.append(userIntitial);
     initialEl.append(submitButton);
@@ -143,7 +163,7 @@ function saveInitial() {
 
     function storeScore(event) {
         event.preventDefault();
-
+        //Call userInitial to this function
         var inputInitial = document.querySelector(".input");
 
         var saveMyScore = {
@@ -159,13 +179,10 @@ function saveInitial() {
             scoreEl.textContent = `Score: ${lastScore.score} Initials: ${lastScore.inputInitial}`;
         }
 
-        // localStorage.setItem("score", score)
-        // var finalScore = localStorage.getItem("score");
-        // scoreEl.textContent = `Score: ${finalScore}`;
     }
-
 }
 
-//Button Event Listener
+//Button Event Listener  STARTS THE GAME
 startButton.addEventListener("click", startTime);
+
 
