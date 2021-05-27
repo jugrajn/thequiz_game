@@ -1,4 +1,4 @@
-//Time Function variables
+//Time Display variable
 var timeElement = document.querySelector(".time");
 
 // Question and Answers variables
@@ -7,7 +7,7 @@ var choicesEl = document.querySelector("#choicesEl");
 
 // Score variable
 var scoreEl = document.querySelector(".score");
- // 0 represents first question in array of object
+var overEl = document.querySelector("#game-over")
 
 //Button variable
 var startButton = document.querySelector(".start-button");
@@ -52,16 +52,17 @@ let quiz = [
         answer: ".js"
     }
 ]
-
-// Need variable to track which Question im on in the object
-
 //-------------------------------------------------------------
-
 //Time Function: 'Timer Interval'
 function startTime() {
+    //Hiding certain elements and showing some based on Start and restarting Game. 
     timeElement.setAttribute("style","display:block;");
     choicesEl.setAttribute("style","display:block;");
     questionEl.setAttribute("style","display:block;");
+    initialEl.setAttribute("style", "display:none");
+    scoreEl.setAttribute("style", "display:none");
+    overEl.setAttribute("style", "display:none");
+
     secondsLeft=75;
     whichQuestion=0;
     score=0;
@@ -74,17 +75,18 @@ function startTime() {
 
     if(secondsLeft <= 0 || whichQuestion === quiz.length) {
         clearInterval(timer);
-   
+        sendMessage();
         saveInitial();
+        overEl.setAttribute("style", "display:block");
         return;
         }
 
     }, 1000);
-    sendMessage();
+    
 }
 
 function sendMessage() {
-    timeElement.textContent = "Game Over";
+    overEl.textContent = "Game Over";
 }
 
 //----------------------------------------------------------------
@@ -95,6 +97,7 @@ function showQuiz() {
         choicesEl.textContent = "";
 
         for ( let i = 0; i < quiz[whichQuestion].choices.length; i++) {
+
             //Create button elements to each choice for each question and append on html
             var newButton = document.createElement("button"); 
             newButton.textContent = quiz[whichQuestion].choices[i];
@@ -108,6 +111,7 @@ function showQuiz() {
         return;
 }
 
+// If I click an answer do the conditions work appropriately: wrong ---> lose time,  right ---> score points.
 function evaluateAnswer(event){
     event.stopPropagation();
     console.log(event.target.textContent)
@@ -122,9 +126,12 @@ function evaluateAnswer(event){
     }
     questionEl.textContent = "";
 
+    //What happens when i answer last question
     if (whichQuestion === quiz.length-1) {
         saveInitial();
         clearInterval(timer);
+        sendMessage();
+        overEl.setAttribute("style", "display:block")
     } else {
         whichQuestion++;
         showQuiz();
@@ -134,11 +141,12 @@ function evaluateAnswer(event){
 //Display the score for each correct answer Create function
 function saveInitial() {
     startButton.disabled = false;
-    //Remove Quiz from page
- 
+    
+    //Hide Timer and Quiz after Game Over
     timeElement.setAttribute("style","display:none;");
     choicesEl.setAttribute("style","display:none;");
     questionEl.setAttribute("style","display:none;");
+    initialEl.setAttribute("style", "display:block");
     
     //Display input initials and Submit Button
     initialEl.textContent = "Type in your Initials";
@@ -157,7 +165,7 @@ function saveInitial() {
     initialEl.append(userIntitial);
     initialEl.append(submitButton);
     
-    // Click Submit and star Save Score Function
+    // Click Submit and start Save Score Function
     submitButton.addEventListener("click", storeScore);
 
 
@@ -175,6 +183,7 @@ function saveInitial() {
         renderMessage();
         
         function renderMessage() {
+            scoreEl.setAttribute("style", "display:block");
             var lastScore = JSON.parse(localStorage.getItem("saveMyScore"));
             scoreEl.textContent = `Score: ${lastScore.score} Initials: ${lastScore.inputInitial}`;
         }

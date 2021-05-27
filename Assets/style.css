@@ -16,6 +16,7 @@ h2 {
 #contentContainer {
     display: flex;
     flex-direction: column;
+    column-gap: 2px;
     align-items: center;
     position: relative;
     height: 4rem;
