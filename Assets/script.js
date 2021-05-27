@@ -107,7 +107,7 @@ function evaluateAnswer(event){
     }
     questionEl.textContent = "";
 
-    if (whichQuestion === quiz.length) {
+    if (whichQuestion === quiz.length-1) {
         saveInitial();
     } else {
         whichQuestion++;
@@ -127,6 +127,7 @@ function saveInitial() {
     initialEl.textContent = "Type in your Initials";
     // ----> Initials input 
     var userIntitial = document.createElement("input");
+    userIntitial.setAttribute("class", "input");
     userIntitial.setAttribute("type", "text");
     // ----> Submit Button
     var submitButton = document.createElement("input");
@@ -142,13 +143,25 @@ function saveInitial() {
 
     function storeScore(event) {
         event.preventDefault();
-        initialEl.remove();
 
+        var inputInitial = document.querySelector(".input");
+
+        var saveMyScore = {
+            score: score,       //Key:Value
+            inputInitial: inputInitial.value,    //Key:Value
+        };
+        console.log(saveMyScore);
+        localStorage.setItem("saveMyScore", JSON.stringify(saveMyScore));
+        renderMessage();
         
+        function renderMessage() {
+            var lastScore = JSON.parse(localStorage.getItem("saveMyScore"));
+            scoreEl.textContent = `Score: ${lastScore.score} Initials: ${lastScore.inputInitial}`;
+        }
 
-        localStorage.setItem("score", score)
-        var finalScore = localStorage.getItem("score");
-        scoreEl.textContent = `Score: ${finalScore}`;
+        // localStorage.setItem("score", score)
+        // var finalScore = localStorage.getItem("score");
+        // scoreEl.textContent = `Score: ${finalScore}`;
     }
 
 }
