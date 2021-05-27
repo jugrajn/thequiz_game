@@ -1,6 +1,6 @@
 # thequiz_game
 
-# Description
+## Description
 
 ```
 GIVEN I am taking a code quiz
@@ -20,11 +20,11 @@ THEN I can save my initials and my score
 
 * Click Start Quiz again to restart Game
 
-# Deployed Application
+## Deployed Application
 
 * Link: https://jugrajn.github.io/thequiz_game/
 
-# Screenshot
-
+## Screenshot
+![](Assets/quizGameScreenshot.gif)
 
 
